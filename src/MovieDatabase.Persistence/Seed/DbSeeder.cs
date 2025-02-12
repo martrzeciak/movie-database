@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using MovieDatabase.Domain.Entities;
 using MovieDatabase.Infrastructure.Data;
 

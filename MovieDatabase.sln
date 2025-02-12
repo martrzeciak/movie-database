@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieDatabase.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieDatabase.API", "src\MovieDatabase.API\MovieDatabase.API.csproj", "{74BB1205-4DCC-489D-BBED-A8FDE2B9BA3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieDatabase.Persistence", "src\MovieDatabase.Persistence\MovieDatabase.Persistence.csproj", "{560E236A-1EEF-4CDE-8EAC-82A0C52E26E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{74BB1205-4DCC-489D-BBED-A8FDE2B9BA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74BB1205-4DCC-489D-BBED-A8FDE2B9BA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74BB1205-4DCC-489D-BBED-A8FDE2B9BA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560E236A-1EEF-4CDE-8EAC-82A0C52E26E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560E236A-1EEF-4CDE-8EAC-82A0C52E26E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560E236A-1EEF-4CDE-8EAC-82A0C52E26E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560E236A-1EEF-4CDE-8EAC-82A0C52E26E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
