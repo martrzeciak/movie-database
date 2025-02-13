@@ -1,5 +1,13 @@
-﻿namespace MovieDatabase.API.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 
-public class MovieController() : BaseApiController
+namespace MovieDatabase.API.Controllers;
+
+public class MovieController : BaseApiController
 {
+    [HttpGet]
+    public async Task<ActionResult<IList<MovieDto>>> GetMovies()
+    {
+        return HandleResult(await Mediator.Send(new GetMovieList.Query()));
+    }
 }

@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Infrastructure.Data;
 using MovieDatabase.Infrastructure.Seed;
+using MovieDatabase.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
