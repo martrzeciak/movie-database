@@ -4,6 +4,7 @@ using MovieDatabase.Application.DTOs;
 
 namespace MovieDatabase.Application.Features.Actors.Queries.GetActorList;
 
-public class GetActorListQuery : IRequest<Result<IList<ActorDto>>>
+public class GetActorListQuery : IRequest<Result<PagedList<ActorDto>>>
 {
+    public required PagingParams Params { get; set; }
 }
