@@ -1,4 +1,4 @@
-﻿namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
+﻿namespace MovieDatabase.Application.DTOs;
 
 public class MovieDto
 {
@@ -8,4 +8,5 @@ public class MovieDto
     public int DurationInMinutes { get; set; }
     public string ContentRating { get; set; } = default!;
     public string Description { get; set; } = default!;
+    public List<string> Genres { get; set; } = [];
 }
