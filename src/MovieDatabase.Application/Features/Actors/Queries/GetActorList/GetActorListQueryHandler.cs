@@ -5,12 +5,12 @@ using MovieDatabase.Application.Common;
 using MovieDatabase.Application.DTOs;
 using MovieDatabase.Infrastructure.Data;
 
-namespace MovieDatabase.Application.Features.Movies.Queries.GetActorList;
+namespace MovieDatabase.Application.Features.Actors.Queries.GetActorList;
 
-public class GetActorListQueryHandler(AppDbContext context) 
+public class GetActorListQueryHandler(AppDbContext context)
     : IRequestHandler<GetActorListQuery, Result<IList<ActorDto>>>
 {
-    public async Task<Result<IList<ActorDto>>> Handle(GetActorListQuery request, 
+    public async Task<Result<IList<ActorDto>>> Handle(GetActorListQuery request,
         CancellationToken cancellationToken)
     {
         var actors = await context.Actors.ToListAsync(cancellationToken);
