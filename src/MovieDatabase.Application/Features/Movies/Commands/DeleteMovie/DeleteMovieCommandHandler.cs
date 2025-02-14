@@ -12,7 +12,8 @@ public class DeleteMovieCommandHandler(AppDbContext context)
     {
         var movie = await context.Movies.FindAsync(request.Id, cancellationToken);
 
-        if (movie == null) return Result<Unit>.Failure("Movie not found.", 404);
+        if (movie == null) return Result<Unit>
+                .Failure($"Movie with id = {request.Id} not found.", 404);
 
         context.Movies.Remove(movie);
 

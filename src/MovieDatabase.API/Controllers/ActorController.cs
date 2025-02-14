@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Features.Actors.Commands.DeleteActor;
 using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Application.Features.Actors.Queries.GetActorDetails;
 using MovieDatabase.Application.Features.Actors.Queries.GetActorList;
@@ -19,5 +20,11 @@ public class ActorController : BaseApiController
     public async Task<ActionResult<ActorDto>> GetActor(Guid id)
     {
         return HandleResult(await Mediator.Send(new GetActorDetailsQuery { Id = id }));
+    }
+
+    [HttpDelete("{id:Guid}")]
+    public async Task<ActionResult> DeleteActor(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new DeleteActorCommand { Id = id }));
     }
 }
