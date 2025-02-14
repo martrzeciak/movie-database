@@ -1,4 +1,4 @@
-﻿namespace MovieDatabase.Application.DTOs;
+﻿namespace MovieDatabase.Application.Features.Movies.DTOs;
 
 public class MovieDto
 {

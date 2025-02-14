@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Common;
-using MovieDatabase.Application.DTOs;
+using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieList;

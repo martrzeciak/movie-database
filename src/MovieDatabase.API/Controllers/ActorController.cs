@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
-using MovieDatabase.Application.DTOs;
+using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Application.Features.Actors.Queries.GetActorDetails;
 using MovieDatabase.Application.Features.Actors.Queries.GetActorList;
 

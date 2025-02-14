@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
-using MovieDatabase.Application.DTOs;
 using MovieDatabase.Application.Features.Movies.Commands.DeleteMovie;
+using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 

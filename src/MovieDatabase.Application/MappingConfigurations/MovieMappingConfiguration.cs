@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using MovieDatabase.Application.DTOs;
+using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Domain.Entities;
 
 namespace MovieDatabase.Application.MappingConfigurations;

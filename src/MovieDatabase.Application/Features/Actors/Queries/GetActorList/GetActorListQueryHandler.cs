@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using MovieDatabase.Application.Common;
-using MovieDatabase.Application.DTOs;
+using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Actors.Queries.GetActorList;
