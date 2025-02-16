@@ -7,7 +7,7 @@ using MovieDatabase.Application.Features.Actors.Queries.GetActorList;
 
 namespace MovieDatabase.API.Controllers;
 
-public class ActorController : BaseApiController
+public class ActorsController : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<PagedList<ActorDto>>> GetActors(

@@ -7,7 +7,7 @@ using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 
 namespace MovieDatabase.API.Controllers;
 
-public class MovieController : BaseApiController
+public class MoviesController : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<PagedList<MovieDto>>> GetMovies(
