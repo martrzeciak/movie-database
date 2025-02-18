@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Features.Movies.Commands.CreateMovie;
 using MovieDatabase.Application.Features.Movies.Commands.DeleteMovie;
 using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
@@ -20,6 +21,12 @@ public class MoviesController : BaseApiController
     public async Task<ActionResult<MovieDto>> GetMovie(Guid id)
     {
         return HandleResult(await Mediator.Send(new GetMovieDetailsQuery { Id = id }));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<string>> CreateMovie(CreateMovieDto movie)
+    {
+        return HandleResult(await Mediator.Send(new CreateMovieCommand { CreateMovieDto = movie }));
     }
 
     [HttpDelete("{id:Guid}")]
