@@ -10,7 +10,7 @@ public class DeleteMovieCommandHandler(AppDbContext context)
     public async Task<Result<Unit>> Handle(DeleteMovieCommand request,
         CancellationToken cancellationToken)
     {
-        var movie = await context.Movies.FindAsync(request.Id, cancellationToken);
+        var movie = await context.Movies.FindAsync([request.Id], cancellationToken);
 
         if (movie == null) return Result<Unit>
                 .Failure($"Movie with id = {request.Id} not found.", 404);

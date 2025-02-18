@@ -10,7 +10,7 @@ public class DeleteActorCommandHandler(AppDbContext context)
     public async Task<Result<Unit>> Handle(DeleteActorCommand request, 
         CancellationToken cancellationToken)
     {
-        var actor = await context.Actors.FindAsync(request.Id, cancellationToken);
+        var actor = await context.Actors.FindAsync([request.Id], cancellationToken);
 
         if (actor == null) return Result<Unit>
                 .Failure($"Actor with id = {request.Id} not found.", 404);
