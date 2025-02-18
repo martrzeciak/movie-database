@@ -9,5 +9,5 @@ public class MovieDto
     public int DurationInMinutes { get; set; }
     public string ContentRating { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public List<string> Genres { get; set; } = [];
+    // public List<string> Genres { get; set; } = [];
 }
