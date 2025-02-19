@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.API.Extensions;
-using MovieDatabase.API.Models;
 using MovieDatabase.Application.Common;
 
 namespace MovieDatabase.API.Controllers;
@@ -18,72 +17,25 @@ public class BaseApiController : ControllerBase
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {
-        if (!result.IsSuccess)
-        {
-            switch (result.Code)
-            {
-                case 404:
-                    return NotFound();
-                case 400:
-                    return BadRequest(new ErrorDetail 
-                    { 
-                        Code = result.Code, 
-                        Message = result.Error ?? "An unknown error occurred" 
-                    });
-                case 401:
-                    return Unauthorized();
-                case 403:
-                    return Forbid();
-                default:
-                    return StatusCode(result.Code, new ErrorDetail 
-                    { 
-                        Code = result.Code, 
-                        Message = result.Error ?? "An unknown error occurred" 
-                    });
-            }
-        }
+        if (!result.IsSuccess && result.Code == 404) return NotFound();
 
-        if (result.IsSuccess && result.Value != null) 
-            return Ok(result.Value);
+        if (result.IsSuccess && result.Value != null) return Ok(result.Value);
 
-        return NoContent();
+        return BadRequest(result.Error);
     }
 
     protected ActionResult HandlePagedResult<T>(Result<PagedList<T>> result)
     {
-        if (!result.IsSuccess)
-        {
-            switch (result.Code)
-            {
-                case 404:
-                    return NotFound();
-                case 400:
-                    return BadRequest(new ErrorDetail
-                    {
-                        Code = result.Code,
-                        Message = result.Error ?? "An unknown error occurred"
-                    });
-                case 401:
-                    return Unauthorized();
-                case 403:
-                    return Forbid();
-                default:
-                    return StatusCode(result.Code, new ErrorDetail
-                    {
-                        Code = result.Code,
-                        Message = result.Error ?? "An unknown error occurred"
-                    });
-            }
-        }
+        if (!result.IsSuccess && result.Code == 404) return NotFound();
 
         if (result.IsSuccess && result.Value != null)
         {
-            Response.AddPaginationHeader(result.Value.CurrentPage, 
+            Response.AddPaginationHeader(result.Value.CurrentPage,
                 result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
+
             return Ok(result.Value);
         }
-            
 
-        return NoContent();
+        return BadRequest(result.Error);
     }
 }
