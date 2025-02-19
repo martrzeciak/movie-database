@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using MovieDatabase.API.ErrorHandling;
+using MovieDatabase.Application;
 using MovieDatabase.Infrastructure.Data;
 using MovieDatabase.Infrastructure.Seed;
-using MovieDatabase.Application;
-using MovieDatabase.API.ErrorHandling;
-using MovieDatabase.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
