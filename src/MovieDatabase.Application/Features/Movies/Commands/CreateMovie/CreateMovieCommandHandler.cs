@@ -16,20 +16,22 @@ public class CreateMovieCommandHandler(AppDbContext context)
         // Adapt the CreateMovieDto to a Movie entity
         var movie = request.CreateMovieDto.Adapt<Movie>();
 
-        // Check if genres exist
-        var movieDtoGenres = request.CreateMovieDto.Genres
+        // Get the genre ids from the dto
+        var dtoGenreIds = request.CreateMovieDto.Genres
             .Select(g => g.Id)
             .ToHashSet();
 
-        var genres = await context.Genres
-            .Where(g => movieDtoGenres.Contains(g.Id))
+        // Get the genres from the database
+        var dbGenreIds = await context.Genres
+            .Where(g => dtoGenreIds.Contains(g.Id))
             .ToListAsync(cancellationToken);
 
-        if (genres.Count != movieDtoGenres.Count)
+        // Check if all genres were found
+        if (dtoGenreIds.Count != dtoGenreIds.Count)
             return Result<string>.Failure("One or more genres not found.", 404);
 
         // Add genres to the movie
-        movie.Genres = genres;
+        movie.Genres = dbGenreIds;
         // Add the movie to the context
         context.Movies.Add(movie);
 
