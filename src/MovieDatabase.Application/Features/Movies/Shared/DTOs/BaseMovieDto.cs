@@ -1,13 +1,16 @@
-﻿namespace MovieDatabase.Application.Features.Movies.Shared;
+﻿using Mapster;
 
-public class MovieQueryDto
+namespace MovieDatabase.Application.Features.Movies.Shared.DTOs;
+
+public class BaseMovieDto
 {
-    public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Director { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }
     public int DurationInMinutes { get; set; }
     public ContentRating ContentRating { get; set; }
     public string Description { get; set; } = string.Empty;
-    public List<GenreQueryDto> Genres { get; set; } = [];
+
+    [AdaptIgnore]
+    public List<GenreDto> Genres { get; set; } = [];
 }

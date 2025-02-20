@@ -1,4 +1,4 @@
-﻿namespace MovieDatabase.Application.Features.Movies.Shared;
+﻿namespace MovieDatabase.Application.Features.Movies.Shared.DTOs;
 
 public class GenreQueryDto
 {

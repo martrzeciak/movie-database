@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MovieDatabase.Application.Features.Movies.DTOs;
-using MovieDatabase.Application.Features.Movies.Shared;
+using MovieDatabase.Application.Features.Movies.Shared.Validators;
 
 namespace MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 

@@ -1,7 +1,8 @@
-﻿namespace MovieDatabase.Application.Features.Movies.Shared;
+﻿namespace MovieDatabase.Application.Features.Movies.Shared.DTOs;
 
-public class BaseMovieDto
+public class MovieQueryDto
 {
+    public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Director { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }

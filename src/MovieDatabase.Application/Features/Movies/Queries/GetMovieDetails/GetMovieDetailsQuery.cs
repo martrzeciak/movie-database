@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MovieDatabase.Application.Common;
-using MovieDatabase.Application.Features.Movies.Shared;
+using MovieDatabase.Application.Features.Movies.Shared.DTOs;
 
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 

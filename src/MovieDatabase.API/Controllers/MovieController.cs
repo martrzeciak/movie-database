@@ -6,7 +6,7 @@ using MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
-using MovieDatabase.Application.Features.Movies.Shared;
+using MovieDatabase.Application.Features.Movies.Shared.DTOs;
 
 namespace MovieDatabase.API.Controllers;
 
