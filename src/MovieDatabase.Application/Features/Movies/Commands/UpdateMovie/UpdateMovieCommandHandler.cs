@@ -25,29 +25,32 @@ public class UpdateMovieCommandHandler(AppDbContext context)
         request.Id = movie.Id;
         request.UpdateMovieDto.Adapt(movie);
 
-        // Check if the genres from the DTO match the genres in the database
-        var dtoGenreIds = request.UpdateMovieDto.Genres.Select(g => g.Id).ToHashSet();
-        var dbGenreIds = movie.Genres.Select(g => g.Id).ToHashSet();
-
-        if (!dtoGenreIds.SetEquals(dbGenreIds))
+        if (request.UpdateMovieDto.Genres.Count != 0)
         {
-            // Check if genres exist
-            var genres = await context.Genres
-                .Where(g => dtoGenreIds.Contains(g.Id))
-                .ToListAsync(cancellationToken);
+            // Check if the genres from the DTO match the genres in the database
+            var dtoGenreIds = request.UpdateMovieDto.Genres.Select(g => g.Id).ToHashSet();
+            var dbGenreIds = movie.Genres.Select(g => g.Id).ToHashSet();
 
-            // Check if all genres were found
-            if (genres.Count != dtoGenreIds.Count)
-                return Result<Unit>.Failure("One or more genres not found.", 404);
+            if (!dtoGenreIds.SetEquals(dbGenreIds))
+            {
+                // Check if genres exist
+                var genres = await context.Genres
+                    .Where(g => dtoGenreIds.Contains(g.Id))
+                    .ToListAsync(cancellationToken);
 
-            // Update the genres
-            var genresToRemove = movie.Genres.Where(g => !dtoGenreIds.Contains(g.Id)).ToList();
-            foreach (var genre in genresToRemove)
-                movie.Genres.Remove(genre);
+                // Check if all genres were found
+                if (genres.Count != dtoGenreIds.Count)
+                    return Result<Unit>.Failure("One or more genres not found.", 404);
 
-            var genresToAdd = genres.Where(g => !dbGenreIds.Contains(g.Id)).ToList();
-            foreach (var genre in genresToAdd)
-                movie.Genres.Add(genre);
+                // Update the genres
+                var genresToRemove = movie.Genres.Where(g => !dtoGenreIds.Contains(g.Id)).ToList();
+                foreach (var genre in genresToRemove)
+                    movie.Genres.Remove(genre);
+
+                var genresToAdd = genres.Where(g => !dbGenreIds.Contains(g.Id)).ToList();
+                foreach (var genre in genresToAdd)
+                    movie.Genres.Add(genre);
+            }
         }
 
         var result = await context.SaveChangesAsync(cancellationToken) > 0;

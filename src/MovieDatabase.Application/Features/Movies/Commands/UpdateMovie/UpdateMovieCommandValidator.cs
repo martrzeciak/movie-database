@@ -10,5 +10,8 @@ public class UpdateMovieCommandValidator : BaseMovieValidator<UpdateMovieCommand
     {
         RuleFor(x => x.UpdateMovieDto.Id)
             .NotEmpty().WithMessage("Id is required.");
+
+        RuleForEach(x => x.UpdateMovieDto.Genres)
+            .SetValidator(new GenreValidator());
     }
 }

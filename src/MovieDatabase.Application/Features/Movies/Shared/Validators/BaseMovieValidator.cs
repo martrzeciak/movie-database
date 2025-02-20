@@ -31,11 +31,5 @@ public class BaseMovieValidator<T, TResult> : AbstractValidator<T>
         RuleFor(x => selector(x).Description)
             .NotEmpty().WithMessage("Description is required.")
             .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.");
-
-        RuleFor(x => selector(x).Genres)
-            .NotEmpty().WithMessage("At least one genre is required.");
-
-        RuleForEach(x => selector(x).Genres)
-            .SetValidator(new GenreValidator());
     }
 }

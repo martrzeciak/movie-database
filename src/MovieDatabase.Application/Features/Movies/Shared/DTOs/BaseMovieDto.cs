@@ -10,7 +10,4 @@ public class BaseMovieDto
     public int DurationInMinutes { get; set; }
     public ContentRating ContentRating { get; set; }
     public string Description { get; set; } = string.Empty;
-
-    [AdaptIgnore]
-    public List<GenreDto> Genres { get; set; } = [];
 }
