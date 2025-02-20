@@ -6,19 +6,20 @@ using MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 using MovieDatabase.Application.Features.Movies.DTOs;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
+using MovieDatabase.Application.Features.Movies.Shared;
 
 namespace MovieDatabase.API.Controllers;
 
 public class MoviesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<PagedList<MovieDto>>> GetMovies([FromQuery] PagingParams pagingParams)
+    public async Task<ActionResult<PagedList<BaseMovieDto>>> GetMovies([FromQuery] PagingParams pagingParams)
     {
         return HandlePagedResult(await Mediator.Send(new GetMovieListQuery { Params = pagingParams }));
     }
 
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<MovieDto>> GetMovie(Guid id)
+    public async Task<ActionResult<BaseMovieDto>> GetMovie(Guid id)
     {
         return HandleResult(await Mediator.Send(new GetMovieDetailsQuery { Id = id }));
     }
