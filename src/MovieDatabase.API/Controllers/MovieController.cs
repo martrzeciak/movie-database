@@ -13,13 +13,13 @@ namespace MovieDatabase.API.Controllers;
 public class MoviesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<PagedList<BaseMovieDto>>> GetMovies([FromQuery] PagingParams pagingParams)
+    public async Task<ActionResult<PagedList<MovieQueryDto>>> GetMovies([FromQuery] PagingParams pagingParams)
     {
         return HandlePagedResult(await Mediator.Send(new GetMovieListQuery { Params = pagingParams }));
     }
 
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<BaseMovieDto>> GetMovie(Guid id)
+    public async Task<ActionResult<MovieQueryDto>> GetMovie(Guid id)
     {
         return HandleResult(await Mediator.Send(new GetMovieDetailsQuery { Id = id }));
     }

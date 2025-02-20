@@ -8,17 +8,17 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 
 public class GetMovieListQueryHandler(AppDbContext context)
-    : IRequestHandler<GetMovieListQuery, Result<PagedList<BaseMovieDto>>>
+    : IRequestHandler<GetMovieListQuery, Result<PagedList<MovieQueryDto>>>
 {
-    public async Task<Result<PagedList<BaseMovieDto>>> Handle(GetMovieListQuery request,
+    public async Task<Result<PagedList<MovieQueryDto>>> Handle(GetMovieListQuery request,
         CancellationToken cancellationToken)
     {
         var query = context.Movies
             .Include(g => g.Genres)
             .Include(c => c.OriginCountries)
-            .ProjectToType<BaseMovieDto>();
+            .ProjectToType<MovieQueryDto>();
 
-        return Result<PagedList<BaseMovieDto>>.Success(await PagedList<BaseMovieDto>
+        return Result<PagedList<MovieQueryDto>>.Success(await PagedList<MovieQueryDto>
             .CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));
     }
 }

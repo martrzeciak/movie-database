@@ -1,11 +1,10 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using MovieDatabase.Application.Behaviors;
-using System.Reflection;
-using FluentValidation;
 using MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
-using MovieDatabase.Application.Features.Movies.Shared;
+using System.Reflection;
 
 namespace MovieDatabase.Application;
 
@@ -14,7 +13,7 @@ public static class ApplicationServiceRegistration
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         // MediatR
-        services.AddMediatR(cfg => 
+        services.AddMediatR(cfg =>
         {
             // Register the handlers from the executing assembly
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());

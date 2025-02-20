@@ -8,9 +8,9 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 
 public class GetMovieDetailsQueryHandler(AppDbContext context)
-    : IRequestHandler<GetMovieDetailsQuery, Result<BaseMovieDto>>
+    : IRequestHandler<GetMovieDetailsQuery, Result<MovieQueryDto>>
 {
-    public async Task<Result<BaseMovieDto>> Handle(GetMovieDetailsQuery request,
+    public async Task<Result<MovieQueryDto>> Handle(GetMovieDetailsQuery request,
         CancellationToken cancellationToken)
     {
         var movie = await context.Movies
@@ -18,8 +18,8 @@ public class GetMovieDetailsQueryHandler(AppDbContext context)
             .Include(c => c.OriginCountries)
             .FirstOrDefaultAsync(m => m.Id == request.Id);
 
-        if (movie == null) return Result<BaseMovieDto>.Failure("Movie not found.", 404);
+        if (movie == null) return Result<MovieQueryDto>.Failure("Movie not found.", 404);
 
-        return Result<BaseMovieDto>.Success(movie.Adapt<BaseMovieDto>());
+        return Result<MovieQueryDto>.Success(movie.Adapt<MovieQueryDto>());
     }
 }

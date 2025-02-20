@@ -4,7 +4,7 @@ using MovieDatabase.Application.Features.Movies.Shared;
 
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 
-public class GetMovieListQuery : IRequest<Result<PagedList<BaseMovieDto>>>
+public class GetMovieListQuery : IRequest<Result<PagedList<MovieQueryDto>>>
 {
     public required PagingParams Params { get; set; }
 }

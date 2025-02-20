@@ -4,7 +4,7 @@ using MovieDatabase.Application.Features.Movies.Shared;
 
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 
-public class GetMovieDetailsQuery : IRequest<Result<BaseMovieDto>>
+public class GetMovieDetailsQuery : IRequest<Result<MovieQueryDto>>
 {
     public required Guid Id { get; set; }
 }
