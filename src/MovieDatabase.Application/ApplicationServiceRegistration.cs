@@ -3,6 +3,9 @@ using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using MovieDatabase.Application.Behaviors;
 using System.Reflection;
+using FluentValidation;
+using MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
+using MovieDatabase.Application.Features.Movies.Shared;
 
 namespace MovieDatabase.Application;
 
@@ -10,12 +13,19 @@ public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        // MediatR
         services.AddMediatR(cfg => 
         {
+            // Register the handlers from the executing assembly
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            // Register the validation behavior
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
+        // FluentValidation
+        services.AddValidatorsFromAssemblyContaining<UpdateMovieCommandValidator>();
+
+        // Mapster
         var config = TypeAdapterConfig.GlobalSettings;
         config.Scan(Assembly.GetExecutingAssembly());
 

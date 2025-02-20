@@ -7,5 +7,5 @@ namespace MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 public class UpdateMovieCommand : IRequest<Result<Unit>>
 {
     public required Guid Id { get; set; }
-    public required MovieDto MovieDto { get; set; }
+    public required UpdateMovieDto UpdateMovieDto { get; set; }
 }

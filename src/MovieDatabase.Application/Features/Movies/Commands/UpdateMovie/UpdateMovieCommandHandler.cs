@@ -18,7 +18,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
 
         request.Id = movie.Id;
 
-        request.MovieDto.Adapt(movie);
+        request.UpdateMovieDto.Adapt(movie);
 
         var result = await context.SaveChangesAsync(cancellationToken) > 0;
 

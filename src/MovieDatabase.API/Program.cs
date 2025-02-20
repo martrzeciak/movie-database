@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 //builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -34,7 +36,6 @@ app.UseCors(builder => builder
     .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseExceptionHandler(options => { });
-
 
 if (app.Environment.IsDevelopment())
 {

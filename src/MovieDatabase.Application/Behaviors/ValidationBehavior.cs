@@ -4,30 +4,37 @@ using MediatR;
 namespace MovieDatabase.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>
-    (IEnumerable<IValidator<TRequest>> validators)
-    : IPipelineBehavior<TRequest, TResponse> 
-    where TRequest : IRequest<TResponse> 
+    (IValidator<TRequest> validator)
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
     where TResponse : notnull
 {
-    public async Task<TResponse> Handle(TRequest request, 
-        RequestHandlerDelegate<TResponse> next, 
+    public async Task<TResponse> Handle(TRequest request,
+        RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
-    { 
-        if (!validators.Any()) return await next();
+    {
+        if (validator == null) return await next();
 
         var context = new ValidationContext<TRequest>(request);
 
-        var validationResults = await Task.WhenAll(validators
-            .Select(v => v.ValidateAsync(context, cancellationToken)));
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        var failures = validationResults 
-            .Where(r => r.Errors.Count != 0)
-            .SelectMany(r => r.Errors)
-            .ToList();
-
-        if (failures.Count != 0)
-            throw new ValidationException(failures);
-
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.Errors);
+        }
         return await next();
+    }
+}
+
+public class ValidationError
+{
+    public string PropertyName { get; set; }
+    public string ErrorMessage { get; set; }
+
+    public ValidationError(string propertyName, string errorMessage)
+    {
+        PropertyName = propertyName;
+        ErrorMessage = errorMessage;
     }
 }

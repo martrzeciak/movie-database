@@ -2,6 +2,7 @@
 
 namespace MovieDatabase.Application.Features.Movies.DTOs;
 
-public class CreateMovieDto : BaseMovieDto
+public class UpdateMovieDto : BaseMovieDto
 {
+    public Guid Id { get; set; }
 }

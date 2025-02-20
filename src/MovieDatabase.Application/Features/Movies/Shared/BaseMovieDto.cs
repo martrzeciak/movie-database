@@ -1,10 +1,7 @@
-﻿using MovieDatabase.Application.Features.Movies.Shared;
+﻿namespace MovieDatabase.Application.Features.Movies.Shared;
 
-namespace MovieDatabase.Application.Features.Movies.DTOs;
-
-public class MovieDto
+public class BaseMovieDto
 {
-    public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Director { get; set; } = string.Empty;
     public DateTime ReleaseDate { get; set; }

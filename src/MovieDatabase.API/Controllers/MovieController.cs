@@ -30,9 +30,9 @@ public class MoviesController : BaseApiController
     }
 
     [HttpPut("{id:Guid}")]
-    public async Task<ActionResult> UpdateMovie(Guid id, MovieDto movie)
+    public async Task<ActionResult> UpdateMovie(Guid id, UpdateMovieDto movie)
     {
-        return HandleResult(await Mediator.Send(new UpdateMovieCommand { Id = id, MovieDto = movie }));
+        return HandleResult(await Mediator.Send(new UpdateMovieCommand { Id = id, UpdateMovieDto = movie }));
     }
 
     [HttpDelete("{id:Guid}")]
