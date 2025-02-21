@@ -1,13 +1,14 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 
 public class UpdateMovieCommandHandler(AppDbContext context)
-    : IRequestHandler<UpdateMovieCommand, Result<Unit>>
+    : ICommandHandler<UpdateMovieCommand, Unit>
 {
     public async Task<Result<Unit>> Handle(UpdateMovieCommand request,
         CancellationToken cancellationToken)

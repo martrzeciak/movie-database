@@ -1,6 +1,6 @@
 ﻿using Mapster;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Domain.Entities;
 using MovieDatabase.Infrastructure.Data;
@@ -8,9 +8,9 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Movies.Commands.CreateMovie;
 
 public class CreateMovieCommandHandler(AppDbContext context)
-    : IRequestHandler<CreateMovieCommand, Result<Guid>>
+    : ICommandHandler<CreateMovieCommand, Guid>
 {
-    public async Task<Result<Guid>> Handle(CreateMovieCommand request, 
+    public async Task<Result<Guid>> Handle(CreateMovieCommand request,
         CancellationToken cancellationToken)
     {
         // Validation
@@ -56,9 +56,9 @@ public class CreateMovieCommandHandler(AppDbContext context)
             .Where(c => dtoCountryIds.Contains(c.Id))
             .ToListAsync(cancellationToken);
 
-       var dbCountryIds = dbCountryList
-            .Select(c => c.Id)
-            .ToHashSet();
+        var dbCountryIds = dbCountryList
+             .Select(c => c.Id)
+             .ToHashSet();
 
         // Check if all countries were found
         if (!dtoCountryIds.SetEquals(dbCountryIds))

@@ -1,6 +1,6 @@
 ﻿using Mapster;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Movies.Shared.DTOs;
 using MovieDatabase.Infrastructure.Data;
@@ -8,7 +8,7 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 
 public class GetMovieListQueryHandler(AppDbContext context)
-    : IRequestHandler<GetMovieListQuery, Result<PagedList<MovieQueryDto>>>
+    : IQueryHandler<GetMovieListQuery, PagedList<MovieQueryDto>>
 {
     public async Task<Result<PagedList<MovieQueryDto>>> Handle(GetMovieListQuery request,
         CancellationToken cancellationToken)

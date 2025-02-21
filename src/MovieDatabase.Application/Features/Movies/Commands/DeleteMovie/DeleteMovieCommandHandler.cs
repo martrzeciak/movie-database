@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Movies.Commands.DeleteMovie;
 
 public class DeleteMovieCommandHandler(AppDbContext context)
-    : IRequestHandler<DeleteMovieCommand, Result<Unit>>
+    : ICommandHandler<DeleteMovieCommand, Unit>
 {
     public async Task<Result<Unit>> Handle(DeleteMovieCommand request,
         CancellationToken cancellationToken)
