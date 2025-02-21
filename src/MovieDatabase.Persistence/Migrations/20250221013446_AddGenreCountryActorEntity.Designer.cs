@@ -12,8 +12,8 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250213171853_AddActorEntity")]
-    partial class AddActorEntity
+    [Migration("20250221013446_AddGenreCountryActorEntity")]
+    partial class AddGenreCountryActorEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace MovieDatabase.Infrastructure.Migrations
                     b.Property<Guid>("MoviesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("OriginCountriesId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OriginCountriesId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MoviesId", "OriginCountriesId");
 
@@ -97,11 +97,9 @@ namespace MovieDatabase.Infrastructure.Migrations
 
             modelBuilder.Entity("MovieDatabase.Domain.Entities.Country", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .IsRequired()
