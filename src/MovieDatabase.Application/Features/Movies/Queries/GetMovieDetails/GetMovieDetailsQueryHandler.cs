@@ -14,12 +14,13 @@ public class GetMovieDetailsQueryHandler(AppDbContext context)
         CancellationToken cancellationToken)
     {
         var movie = await context.Movies
-            .Include(g => g.Genres)
-            .Include(c => c.OriginCountries)
-            .FirstOrDefaultAsync(m => m.Id == request.Id);
+            .AsNoTracking()
+            .ProjectToType<MovieQueryDto>()
+            .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
-        if (movie == null) return Result<MovieQueryDto>.Failure("Movie not found.", 404);
+        if (movie == null) return Result<MovieQueryDto>
+                .Failure($"Movie with id = {request.Id} not found.", 404);
 
-        return Result<MovieQueryDto>.Success(movie.Adapt<MovieQueryDto>());
+        return Result<MovieQueryDto>.Success(movie);
     }
 }

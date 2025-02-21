@@ -16,8 +16,8 @@ public class CountryValidator : AbstractValidator<CountryDto>
             .MaximumLength(50).WithMessage("Name must not exceed 50 characters.");
 
         RuleFor(x => x.Code)
-            .NotEmpty().WithMessage("Code is required.")
-            .Length(6).WithMessage("Code must be 6 characters.");
+            .NotEmpty().WithMessage("Code is required.");
+            // .Length(6).WithMessage("Code must be 6 characters.");
 
         RuleFor(x => x.Continent)
             .NotEmpty().WithMessage("Continent is required.")

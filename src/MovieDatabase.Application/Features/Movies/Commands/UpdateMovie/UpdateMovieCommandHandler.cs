@@ -15,6 +15,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
         // Get the movie from the database
         var movie = await context.Movies
             .Include(m => m.Genres)
+            .Include(c => c.OriginCountries)
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
         // Check if movie exists

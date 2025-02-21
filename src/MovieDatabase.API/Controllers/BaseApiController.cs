@@ -17,7 +17,7 @@ public class BaseApiController : ControllerBase
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {
-        if (!result.IsSuccess && result.Code == 404) return NotFound();
+        if (!result.IsSuccess && result.Code == 404) return NotFound(result.Error);
 
         if (result.IsSuccess && result.Value != null) return Ok(result.Value);
 
@@ -26,7 +26,7 @@ public class BaseApiController : ControllerBase
 
     protected ActionResult HandlePagedResult<T>(Result<PagedList<T>> result)
     {
-        if (!result.IsSuccess && result.Code == 404) return NotFound();
+        if (!result.IsSuccess && result.Code == 404) return NotFound(result.Error);
 
         if (result.IsSuccess && result.Value != null)
         {

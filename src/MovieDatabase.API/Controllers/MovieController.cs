@@ -4,6 +4,7 @@ using MovieDatabase.Application.Features.Movies.Commands.CreateMovie;
 using MovieDatabase.Application.Features.Movies.Commands.DeleteMovie;
 using MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
 using MovieDatabase.Application.Features.Movies.DTOs;
+using MovieDatabase.Application.Features.Movies.Queries.GetMovieCast;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 using MovieDatabase.Application.Features.Movies.Queries.GetMovieList;
 using MovieDatabase.Application.Features.Movies.Shared.DTOs;
@@ -41,5 +42,11 @@ public class MoviesController : BaseApiController
     {
         return HandleResult(await Mediator.Send(new DeleteMovieCommand { Id = id }));
     }
+
+    [HttpGet("{id:Guid}/cast")]
+    public async Task<ActionResult> AddCastMember(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new GetMovieCastQuery { Id = id }));
+    }
 }
-    
+
