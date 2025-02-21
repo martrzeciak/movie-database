@@ -25,7 +25,7 @@ public class MoviesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> CreateMovie(CreateMovieDto movie)
+    public async Task<ActionResult<Guid>> CreateMovie(CreateMovieDto movie)
     {
         return HandleResult(await Mediator.Send(new CreateMovieCommand { CreateMovieDto = movie }));
     }

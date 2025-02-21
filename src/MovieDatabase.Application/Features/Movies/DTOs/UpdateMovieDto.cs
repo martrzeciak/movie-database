@@ -9,4 +9,7 @@ public class UpdateMovieDto : BaseMovieDto
 
     [AdaptIgnore]
     public List<GenreDto> Genres { get; set; } = [];
+
+    [AdaptIgnore]
+    public List<CountryDto> OriginCountries { get; set; } = [];
 }

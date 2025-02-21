@@ -1,6 +1,4 @@
-﻿using Mapster;
-
-namespace MovieDatabase.Application.Features.Movies.Shared.DTOs;
+﻿namespace MovieDatabase.Application.Features.Movies.Shared.DTOs;
 
 public class BaseMovieDto
 {

@@ -10,4 +10,5 @@ public class MovieQueryDto
     public ContentRating ContentRating { get; set; }
     public string Description { get; set; } = string.Empty;
     public List<GenreQueryDto> Genres { get; set; } = [];
+    public List<CountryQueryDto> OriginCountries { get; set; } = [];
 }

@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Movies.Shared.DTOs;
 using MovieDatabase.Infrastructure.Data;
@@ -14,8 +13,6 @@ public class GetMovieListQueryHandler(AppDbContext context)
         CancellationToken cancellationToken)
     {
         var query = context.Movies
-            .Include(g => g.Genres)
-            .Include(c => c.OriginCountries)
             .ProjectToType<MovieQueryDto>();
 
         return Result<PagedList<MovieQueryDto>>.Success(await PagedList<MovieQueryDto>

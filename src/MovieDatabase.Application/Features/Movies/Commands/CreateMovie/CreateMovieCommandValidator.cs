@@ -13,5 +13,11 @@ public class CreateMovieCommandValidator : BaseMovieValidator<CreateMovieCommand
 
         RuleForEach(x => x.CreateMovieDto.Genres)
             .SetValidator(new GenreValidator());
+
+        RuleFor(x => x.CreateMovieDto.OriginCountries)
+            .NotEmpty().WithMessage("At least one origin country is required.");
+
+        RuleForEach(x => x.CreateMovieDto.OriginCountries)
+            .SetValidator(new CountryValidator());
     }
 }

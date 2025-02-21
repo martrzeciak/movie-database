@@ -13,5 +13,8 @@ public class UpdateMovieCommandValidator : BaseMovieValidator<UpdateMovieCommand
 
         RuleForEach(x => x.UpdateMovieDto.Genres)
             .SetValidator(new GenreValidator());
+
+        RuleForEach(x => x.UpdateMovieDto.OriginCountries)
+            .SetValidator(new CountryValidator());
     }
 }
