@@ -3,6 +3,7 @@ using MovieDatabase.API.ErrorHandling;
 using MovieDatabase.Application;
 using MovieDatabase.Infrastructure.Data;
 using MovieDatabase.Infrastructure.Seed;
+using MovieDatabase.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 

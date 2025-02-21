@@ -19,6 +19,7 @@ public static class ApplicationServiceRegistration
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             // Register the validation behavior
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(QueryCachingBehavior<,>));
         });
 
         // FluentValidation
