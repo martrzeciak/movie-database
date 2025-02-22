@@ -1,6 +1,6 @@
 ﻿using Mapster;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Infrastructure.Data;
@@ -8,9 +8,9 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Actors.Queries.GetActorDetails;
 
 public class GetActorDetailsQueryHandler(AppDbContext context)
-    : IRequestHandler<GetActorDetailsQuery, Result<ActorDto>>
+    : IQueryHandler<GetActorDetailsQuery, ActorDto>
 {
-    public async Task<Result<ActorDto>> Handle(GetActorDetailsQuery request, 
+    public async Task<Result<ActorDto>> Handle(GetActorDetailsQuery request,
         CancellationToken cancellationToken)
     {
         var actor = await context.Actors

@@ -25,4 +25,9 @@ public class CachingService(IMemoryCache memoryCache) : ICacheService
 
         return result;
     }
+
+    public void Remove(string key)
+    {
+        memoryCache.Remove(key);
+    }
 }

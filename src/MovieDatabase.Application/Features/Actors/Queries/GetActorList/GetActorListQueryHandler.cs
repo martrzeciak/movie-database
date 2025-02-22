@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using MediatR;
+using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Infrastructure.Data;
@@ -7,7 +7,7 @@ using MovieDatabase.Infrastructure.Data;
 namespace MovieDatabase.Application.Features.Actors.Queries.GetActorList;
 
 public class GetActorListQueryHandler(AppDbContext context)
-    : IRequestHandler<GetActorListQuery, Result<PagedList<ActorDto>>>
+    : IQueryHandler<GetActorListQuery, PagedList<ActorDto>>
 {
     public async Task<Result<PagedList<ActorDto>>> Handle(GetActorListQuery request,
         CancellationToken cancellationToken)
