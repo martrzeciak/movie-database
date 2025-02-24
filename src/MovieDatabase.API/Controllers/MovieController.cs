@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Movies.Commands.CreateMovie;
 using MovieDatabase.Application.Features.Movies.Commands.DeleteMovie;
@@ -13,12 +14,14 @@ namespace MovieDatabase.API.Controllers;
 
 public class MoviesController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<PagedList<MovieQueryDto>>> GetMovies([FromQuery] PagingParams pagingParams)
     {
         return HandlePagedResult(await Mediator.Send(new GetMovieListQuery { Params = pagingParams }));
     }
 
+    [AllowAnonymous]
     [HttpGet("{id:Guid}")]
     public async Task<ActionResult<MovieQueryDto>> GetMovie(Guid id)
     {
@@ -43,6 +46,7 @@ public class MoviesController : BaseApiController
         return HandleResult(await Mediator.Send(new DeleteMovieCommand { Id = id }));
     }
 
+    [AllowAnonymous]
     [HttpGet("{id:Guid}/cast")]
     public async Task<ActionResult> AddCastMember(Guid id)
     {

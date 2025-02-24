@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Domain.Entities;
 using MovieDatabase.Infrastructure.Data;
 
@@ -6,8 +7,22 @@ namespace MovieDatabase.Infrastructure.Seed;
 
 public class DbSeeder
 {
-    public static async Task SeedAsync(AppDbContext context)
+    public static async Task SeedAsync(AppDbContext context, UserManager<User> userManager)
     {
+        if (!await userManager.Users.AnyAsync())
+        {
+            var users = new List<User>
+            {
+                new() { UserName = "john@email.com", Email = "john@email.com"  },
+                new() { UserName = "jane@email.com", Email = "jane@email.com"  }
+            };
+
+            foreach (var user in users)
+            {
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+            }
+        }
+
         if (!await context.Genres.AnyAsync())
         {
             var genres = new List<Genre>
@@ -133,78 +148,78 @@ public class DbSeeder
         if (!await context.Actors.AnyAsync())
         {
             var actors = new List<Actor>
-        {
-            new Actor
             {
-                Name = "Leonardo DiCaprio",
-                DateOfBirth = new DateTime(1974, 11, 11),
-                Height = 1.83,
-                Biography = "Leonardo DiCaprio is an American actor, producer, and environmental activist."
-            },
-            new Actor
-            {
-                Name = "Matthew McConaughey",
-                DateOfBirth = new DateTime(1969, 11, 4),
-                Height = 1.82,
-                Biography = "Matthew McConaughey is an American actor and producer."
-            },
-            new Actor
-            {
-                Name = "Al Pacino",
-                DateOfBirth = new DateTime(1940, 4, 25),
-                Height = 1.73,
-                Biography = "Al Pacino is an American actor and filmmaker, known for his roles in crime dramas."
-            },
-            new Actor
-            {
-                Name = "Christian Bale",
-                DateOfBirth = new DateTime(1974, 1, 30),
-                Height = 1.80,
-                Biography = "Christian Bale is an English actor known for his versatility in various roles."
-            },
-            new Actor
-            {
-                Name = "Bruce Willis",
-                DateOfBirth = new DateTime(1955, 3, 19),
-                Height = 1.83,
-                Biography = "Bruce Willis is an American actor known for his roles in action films, notably the Die Hard series."
-            },
-            new Actor
-            {
-                Name = "Joseph Gordon-Levitt",
-                DateOfBirth = new DateTime(1981, 2, 17),
-                Height = 1.78,
-                Biography = "Joseph Gordon-Levitt is an American actor and filmmaker, known for his roles in films like 'Inception' and 'Looper'."
-            },
-            new Actor
-            {
-                Name = "Anne Hathaway",
-                DateOfBirth = new DateTime(1982, 11, 12),
-                Height = 1.73,
-                Biography = "Anne Hathaway is an American actress, recognized for her performances in films such as 'The Devil Wears Prada' and 'Les Misérables'."
-            },
-            new Actor
-            {
-                Name = "Marlon Brando",
-                DateOfBirth = new DateTime(1924, 4, 3),
-                Height = 1.75,
-                Biography = "Marlon Brando was an American actor and film director, celebrated for his roles in classics like 'A Streetcar Named Desire' and 'The Godfather'."
-            },
-            new Actor
-            {
-                Name = "Heath Ledger",
-                DateOfBirth = new DateTime(1979, 4, 4),
-                Height = 1.85,
-                Biography = "Heath Ledger was an Australian actor, renowned for his portrayal of the Joker in 'The Dark Knight'."
-            },
-            new Actor
-            {
-                Name = "Uma Thurman",
-                DateOfBirth = new DateTime(1970, 4, 29),
-                Height = 1.80,
-                Biography = "Uma Thurman is an American actress and model, known for her roles in films such as 'Pulp Fiction' and 'Kill Bill'."
-            }
-        };
+                new Actor
+                {
+                    Name = "Leonardo DiCaprio",
+                    DateOfBirth = new DateTime(1974, 11, 11),
+                    Height = 1.83,
+                    Biography = "Leonardo DiCaprio is an American actor, producer, and environmental activist."
+                },
+                new Actor
+                {
+                    Name = "Matthew McConaughey",
+                    DateOfBirth = new DateTime(1969, 11, 4),
+                    Height = 1.82,
+                    Biography = "Matthew McConaughey is an American actor and producer."
+                },
+                new Actor
+                {
+                    Name = "Al Pacino",
+                    DateOfBirth = new DateTime(1940, 4, 25),
+                    Height = 1.73,
+                    Biography = "Al Pacino is an American actor and filmmaker, known for his roles in crime dramas."
+                },
+                new Actor
+                {
+                    Name = "Christian Bale",
+                    DateOfBirth = new DateTime(1974, 1, 30),
+                    Height = 1.80,
+                    Biography = "Christian Bale is an English actor known for his versatility in various roles."
+                },
+                new Actor
+                {
+                    Name = "Bruce Willis",
+                    DateOfBirth = new DateTime(1955, 3, 19),
+                    Height = 1.83,
+                    Biography = "Bruce Willis is an American actor known for his roles in action films, notably the Die Hard series."
+                },
+                new Actor
+                {
+                    Name = "Joseph Gordon-Levitt",
+                    DateOfBirth = new DateTime(1981, 2, 17),
+                    Height = 1.78,
+                    Biography = "Joseph Gordon-Levitt is an American actor and filmmaker, known for his roles in films like 'Inception' and 'Looper'."
+                },
+                new Actor
+                {
+                    Name = "Anne Hathaway",
+                    DateOfBirth = new DateTime(1982, 11, 12),
+                    Height = 1.73,
+                    Biography = "Anne Hathaway is an American actress, recognized for her performances in films such as 'The Devil Wears Prada' and 'Les Misérables'."
+                },
+                new Actor
+                {
+                    Name = "Marlon Brando",
+                    DateOfBirth = new DateTime(1924, 4, 3),
+                    Height = 1.75,
+                    Biography = "Marlon Brando was an American actor and film director, celebrated for his roles in classics like 'A Streetcar Named Desire' and 'The Godfather'."
+                },
+                new Actor
+                {
+                    Name = "Heath Ledger",
+                    DateOfBirth = new DateTime(1979, 4, 4),
+                    Height = 1.85,
+                    Biography = "Heath Ledger was an Australian actor, renowned for his portrayal of the Joker in 'The Dark Knight'."
+                },
+                new Actor
+                {
+                    Name = "Uma Thurman",
+                    DateOfBirth = new DateTime(1970, 4, 29),
+                    Height = 1.80,
+                    Biography = "Uma Thurman is an American actress and model, known for her roles in films such as 'Pulp Fiction' and 'Kill Bill'."
+                }
+            };
 
             await context.Actors.AddRangeAsync(actors);
             await context.SaveChangesAsync();

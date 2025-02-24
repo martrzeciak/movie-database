@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Features.Actors.Commands.DeleteActor;
 using MovieDatabase.Application.Features.Actors.DTOs;
@@ -9,6 +10,7 @@ namespace MovieDatabase.API.Controllers;
 
 public class ActorsController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<PagedList<ActorDto>>> GetActors(
         [FromQuery] PagingParams pagingParams)
@@ -16,6 +18,7 @@ public class ActorsController : BaseApiController
         return HandlePagedResult(await Mediator.Send(new GetActorListQuery { Params = pagingParams }));
     }
 
+    [AllowAnonymous]
     [HttpGet("{id:Guid}")]
     public async Task<ActionResult<ActorDto>> GetActor(Guid id)
     {
