@@ -17,7 +17,8 @@ public static class ApplicationServiceRegistration
         {
             // Register the handlers from the executing assembly
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            // Register the validation behavior
+
+            cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             cfg.AddOpenBehavior(typeof(QueryCachingBehavior<,>));
         });
