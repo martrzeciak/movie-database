@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Abstractions.CQRS;
+using MovieDatabase.Application.Abstractions.User;
 using MovieDatabase.Application.Common;
 using MovieDatabase.Application.Common.Errors;
 using MovieDatabase.Application.Features.Movies.Shared.DTOs;
@@ -8,7 +9,7 @@ using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Movies.Queries.GetMovieDetails;
 
-public class GetMovieDetailsQueryHandler(AppDbContext context)
+public class GetMovieDetailsQueryHandler(AppDbContext context, ICurrentUserService currentUserService)
     : IQueryHandler<GetMovieDetailsQuery, MovieQueryDto>
 {
     public async Task<Result<MovieQueryDto>> Handle(GetMovieDetailsQuery request,
@@ -19,10 +20,11 @@ public class GetMovieDetailsQueryHandler(AppDbContext context)
             .ProjectToType<MovieQueryDto>()
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
+        var isUserAuthenticated = currentUserService.IsUserLoggedIn();
+
         if (movie is null) 
             return Result.Failure<MovieQueryDto>(MovieErrors.NotFound(request.Id));
 
         return Result.Success(movie);
-
     }
 }
