@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Common.Errors;
 using MovieDatabase.Infrastructure.Data;
 
 namespace MovieDatabase.Application.Features.Movies.Commands.UpdateMovie;
@@ -20,8 +21,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
         // Check if movie exists
-        if (movie == null) return Result<Unit>
-                .Failure($"Movie with id = {request.Id} not found.", 404);
+        if (movie == null) return Result.Failure<Unit>(MovieErrors.NotFound(request.Id));
 
         // Adapt the UpdateMovieDto to the Movie entity
         request.Id = movie.Id;
@@ -47,7 +47,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
                 .ToHashSet();
 
             if (!dtoGenreIds.SetEquals(existingGenreIds))
-                return Result<Unit>.Failure("One or more genres not found.", 404);
+                return Result.Failure<Unit>(MovieErrors.GenresNotFound);
 
             // Remove genres that are not in the DTO
             var genresToRemove = movie.Genres
@@ -86,7 +86,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
                 .ToHashSet();
 
             if (!dtoCountryIds.SetEquals(existingCountryIds))
-                return Result<Unit>.Failure("One or more countries not found.", 404);
+                return Result.Failure<Unit>(MovieErrors.CountriesNotFound);
 
             // Remove countries that are not in the DTO
             var countriesToRemove = movie.OriginCountries
@@ -108,7 +108,7 @@ public class UpdateMovieCommandHandler(AppDbContext context)
         var result = await context.SaveChangesAsync(cancellationToken) > 0;
 
         return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure("Failed to update movie.", 400);
+            ? Result.Success(Unit.Value)
+            : Result.Failure<Unit>(MovieErrors.UpdateFailed);
     }
 }

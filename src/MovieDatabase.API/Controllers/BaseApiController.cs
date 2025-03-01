@@ -17,25 +17,34 @@ public class BaseApiController : ControllerBase
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {
-        if (!result.IsSuccess && result.Code == 404) return NotFound(result.Error);
+        if (result.IsFailure)
+        {
+            return result.Error.Code switch
+            {
+                "404" => NotFound(result.Error),
+                "400" => BadRequest(result.Error),
+                _ => StatusCode(500, result.Error)
+            };
+        }
 
-        if (result.IsSuccess && result.Value != null) return Ok(result.Value);
-
-        return BadRequest(result.Error);
+        return Ok(result.Error);
     }
 
     protected ActionResult HandlePagedResult<T>(Result<PagedList<T>> result)
     {
-        if (!result.IsSuccess && result.Code == 404) return NotFound(result.Error);
-
-        if (result.IsSuccess && result.Value != null)
+        if (result.IsFailure)
         {
-            Response.AddPaginationHeader(result.Value.CurrentPage,
-                result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
-
-            return Ok(result.Value);
+            return result.Error.Code switch
+            {
+                "404" => NotFound(result.Error),
+                "400" => BadRequest(result.Error),
+                _ => StatusCode(500, result.Error)
+            };
         }
 
-        return BadRequest(result.Error);
+        Response.AddPaginationHeader(result.Value.CurrentPage,
+            result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
+
+        return Ok(result.Value);
     }
 }

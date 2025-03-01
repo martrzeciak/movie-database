@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Common.Errors;
 using MovieDatabase.Domain.Entities;
 using MovieDatabase.Infrastructure.Data;
 
@@ -15,10 +16,10 @@ public class CreateMovieCommandHandler(AppDbContext context)
     {
         // Validation
         if (request.CreateMovieDto.Genres.Count == 0)
-            return Result<Guid>.Failure("Genres not provided.", 400);
+            return Result.Failure<Guid>(MovieErrors.GenreNotProvided);
 
         if (request.CreateMovieDto.OriginCountries.Count == 0)
-            return Result<Guid>.Failure("Origin countries not provided.", 400);
+            return Result.Failure<Guid>(MovieErrors.CountryNotProvided);
 
 
         // Adapt the CreateMovieDto to a Movie entity
@@ -40,7 +41,7 @@ public class CreateMovieCommandHandler(AppDbContext context)
 
         // Check if all genres were found
         if (!dtoGenreIds.SetEquals(dbGenreIds))
-            return Result<Guid>.Failure("One or more genres not found.", 404);
+            return Result.Failure<Guid>(MovieErrors.GenresNotFound);
 
         // Add genres to the movie
         movie.Genres = dbGenreList;
@@ -62,7 +63,7 @@ public class CreateMovieCommandHandler(AppDbContext context)
 
         // Check if all countries were found
         if (!dtoCountryIds.SetEquals(dbCountryIds))
-            return Result<Guid>.Failure("One or more countries not found.", 404);
+            return Result.Failure<Guid>(MovieErrors.CountriesNotFound);
 
         // Add countries to the movie
         movie.OriginCountries = dbCountryList;
@@ -74,7 +75,7 @@ public class CreateMovieCommandHandler(AppDbContext context)
         var result = await context.SaveChangesAsync(cancellationToken) > 0;
 
         return result
-            ? Result<Guid>.Success(movie.Id)
-            : Result<Guid>.Failure("Failed to create movie.", 400);
+            ? Result.Success(movie.Id)
+            : Result.Failure<Guid>(MovieErrors.CreationFailed);
     }
 }

@@ -15,7 +15,7 @@ public class GetActorListQueryHandler(AppDbContext context)
         var query = context.Actors
             .ProjectToType<ActorDto>();
 
-        return Result<PagedList<ActorDto>>.Success(await PagedList<ActorDto>
+        return Result.Success(await PagedList<ActorDto>
             .CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));
     }
 }

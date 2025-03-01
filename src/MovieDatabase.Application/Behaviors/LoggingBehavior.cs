@@ -25,7 +25,7 @@ public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TReque
         }
 
         logger.LogInformation("Request processed: {@RequestName} - {@DateTimeUtc}",
-        typeof(TRequest).Name, DateTime.UtcNow);
+            typeof(TRequest).Name, DateTime.UtcNow);
 
         return result;
     }

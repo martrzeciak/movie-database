@@ -17,7 +17,7 @@ public class GetMovieListQueryHandler(AppDbContext context)
             .AsNoTracking()
             .ProjectToType<MovieQueryDto>();
 
-        return Result<PagedList<MovieQueryDto>>.Success(await PagedList<MovieQueryDto>
+        return Result.Success(await PagedList<MovieQueryDto>
             .CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));
     }
 }

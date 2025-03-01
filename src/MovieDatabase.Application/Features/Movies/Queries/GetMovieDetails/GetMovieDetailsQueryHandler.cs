@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Common.Errors;
 using MovieDatabase.Application.Features.Movies.Shared.DTOs;
 using MovieDatabase.Infrastructure.Data;
 
@@ -18,9 +19,10 @@ public class GetMovieDetailsQueryHandler(AppDbContext context)
             .ProjectToType<MovieQueryDto>()
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
-        if (movie == null) return Result<MovieQueryDto>
-                .Failure($"Movie with id = {request.Id} not found.", 404);
+        if (movie is null) 
+            return Result.Failure<MovieQueryDto>(MovieErrors.NotFound(request.Id));
 
-        return Result<MovieQueryDto>.Success(movie);
+        return Result.Success(movie);
+
     }
 }

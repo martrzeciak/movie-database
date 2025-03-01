@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieDatabase.Application.Abstractions.CQRS;
 using MovieDatabase.Application.Common;
+using MovieDatabase.Application.Common.Errors;
 using MovieDatabase.Application.Features.Actors.DTOs;
 using MovieDatabase.Infrastructure.Data;
 
@@ -17,8 +18,9 @@ public class GetActorDetailsQueryHandler(AppDbContext context)
             .Include(m => m.Movies)
             .FirstOrDefaultAsync(a => a.Id == request.Id);
 
-        if (actor == null) return Result<ActorDto>.Failure("Actor not found.", 404);
+        if (actor == null) 
+            return Result.Failure<ActorDto>(ActorErrors.NotFound(request.Id));
 
-        return Result<ActorDto>.Success(actor.Adapt<ActorDto>());
+        return Result.Success(actor.Adapt<ActorDto>());
     }
 }

@@ -20,7 +20,6 @@ public class GetMovieCastQueryHandler(AppDbContext context)
             .ProjectToType<ActorQueryDto>()
             .ToListAsync(cancellationToken);
 
-        return Result<IEnumerable<ActorQueryDto>>
-            .Success(movieCast.Adapt<IEnumerable<ActorQueryDto>>());
+        return Result.Success(movieCast.Adapt<IEnumerable<ActorQueryDto>>());
     }
 }
