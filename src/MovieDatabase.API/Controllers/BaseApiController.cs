@@ -27,7 +27,7 @@ public class BaseApiController : ControllerBase
             };
         }
 
-        return Ok(result.Error);
+        return Ok(result.Value);
     }
 
     protected ActionResult HandlePagedResult<T>(Result<PagedList<T>> result)
