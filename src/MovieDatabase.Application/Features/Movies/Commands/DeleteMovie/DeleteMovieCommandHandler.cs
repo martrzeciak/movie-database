@@ -23,6 +23,5 @@ public class DeleteMovieCommandHandler(AppDbContext context)
         return result
             ? Result.Success(Unit.Value)
             : Result.Failure<Unit>(MovieErrors.DeletionFailed);
-
     }
 }

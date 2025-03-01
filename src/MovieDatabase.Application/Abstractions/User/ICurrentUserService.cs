@@ -3,4 +3,5 @@
 public interface ICurrentUserService
 {
     bool IsUserLoggedIn();
+    string? GetUserId();
 }

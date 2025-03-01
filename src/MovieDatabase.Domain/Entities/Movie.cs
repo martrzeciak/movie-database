@@ -12,4 +12,5 @@ public class Movie : BaseEntity
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
     public ICollection<Country> OriginCountries { get; set; } = new List<Country>();
     public ICollection<Actor> Actors { get; set; } = new List<Actor>();
+    public ICollection<User> UsersWantToWatch { get; set; } = new List<User>();
 }

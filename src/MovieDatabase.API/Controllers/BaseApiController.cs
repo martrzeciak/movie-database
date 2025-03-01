@@ -23,6 +23,7 @@ public class BaseApiController : ControllerBase
             {
                 "404" => NotFound(result.Error),
                 "400" => BadRequest(result.Error),
+                "401" => Unauthorized(result.Error),
                 _ => StatusCode(500, result.Error)
             };
         }
@@ -38,6 +39,7 @@ public class BaseApiController : ControllerBase
             {
                 "404" => NotFound(result.Error),
                 "400" => BadRequest(result.Error),
+                "401" => Unauthorized(result.Error),
                 _ => StatusCode(500, result.Error)
             };
         }

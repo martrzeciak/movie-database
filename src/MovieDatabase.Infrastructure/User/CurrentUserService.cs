@@ -8,9 +8,16 @@ public class CurrentUserService(IHttpContextAccessor contextAccessor) : ICurrent
 {
     public bool IsUserLoggedIn()
     {
+        var userId = GetUserId();
+
+        return !string.IsNullOrEmpty(userId);
+    }
+
+    public string? GetUserId()
+    {
         var userId = contextAccessor.HttpContext?.User
             .FindFirstValue(ClaimTypes.NameIdentifier);
 
-        return !string.IsNullOrEmpty(userId);
+        return userId;
     }
 }

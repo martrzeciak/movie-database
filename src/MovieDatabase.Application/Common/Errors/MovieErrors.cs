@@ -33,4 +33,20 @@ public static class MovieErrors
     public static readonly Error UpdateFailed = new(
         "400",
         "An error occurred while updating the movie.");
+
+    public static Error AlreadyInWatchlist(Guid id) => new(
+        "400",
+        $"Movie with ID {id} is already in the watchlist.");
+
+    public static readonly Error AddToWatchlistFailed = new(
+        "400",
+        "An error occurred while adding the movie to the watchlist.");
+
+    public static readonly Error RemoveFromWatchlistFailed = new(
+        "400",
+        "An error occurred while removing the movie from the watchlist.");
+
+    public static Error NotInWatchlist(Guid id) => new(
+        "400",
+        $"Movie with ID {id} is not in the watchlist.");
 }
